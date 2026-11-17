@@ -3,172 +3,224 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>LAB 03 - JavaScript</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 3 </title>
 </head>
 <body>
-
-    <h1>LAB 03 - LẬP TRÌNH JAVASCRIPT</h1>
-
+    <h1>Lab 3 - Hàm trong JavaScript</h1>
+    <section>
+        <h2>Bài 1: Kiểm tra số chẵn</h2>
+        <label for="so">Nhập số nguyên:</label>
+        <input id="so" type="number" step="1" value="8">
+        <button onclick="bai1()">Kiểm tra</button>
+        <pre id="kq1" aria-live="polite"></pre>
+    </section>
+    <section>
+        <h2>Bài 2: Tính tiền điện</h2>
+        <p>Tính lũy tiến: 50 kWh đầu giá 1.800đ/kWh; 50 kWh tiếp theo giá 2.300đ/kWh; trên 100 kWh giá 3.000đ/kWh.</p>
+        <label for="dien">Số điện (kWh):</label>
+        <input id="dien" type="number" min="0" step="any" value="335">
+        <button onclick="bai2()">Tính tiền</button>
+        <pre id="kq2" aria-live="polite"></pre>
+        <p>Tiền điện 910.000đ: 50 × 1.800 + 50 × 2.300 = 205.000đ.<br>
+        Phần vượt 100 kWh: (910.000 − 205.000) / 3.000 = 235 kWh.<br>
+        <strong>Tổng: 100 + 235 = 335 kWh.</strong></p>
+    </section>
+    <section>
+        <h2>Bài 3: Tính lương</h2>
+        <label for="chucVu">Chức vụ:</label>
+        <select id="chucVu">
+            <option value="intern">Intern - Thực tập (1.0)</option>
+            <option value="staff">Staff - Nhân viên (1.5)</option>
+            <option value="senior">Senior - Chuyên viên (2.0)</option>
+            <option value="manager">Manager - Quản lý (3.0)</option>
+        </select>
+        <label for="ngay">Ngày công:</label>
+        <input id="ngay" type="number" min="0" max="31" step="any" value="24">
+        <button onclick="bai3()">Tính lương</button>
+        <p>Lương = hệ số × ngày công × 5.000.000 / 24.</p>
+        <pre id="kq3" aria-live="polite"></pre>
+    </section>
+    <section>
+        <h2>Bài 4: Chuẩn hóa câu</h2>
+        <label for="cau">Nhập câu:</label><br>
+        <textarea id="cau" rows="3">   xin chao   cac ban.    hom nay   troi dep qua   !toi   di hoc ve ? </textarea><br>
+        <label for="kieu">Cách viết hoa:</label>
+        <select id="kieu">
+            <option value="cau">Đầu câu (theo ví dụ trong đề)</option>
+            <option value="tu">Đầu mỗi từ (theo mô tả trong đề)</option>
+        </select>
+        <button onclick="bai4()">Chuẩn hóa</button>
+        <pre id="kq4" aria-live="polite"></pre>
+    </section>
+    <section>
+        <h2>Bài 5: Máy tính cầm tay</h2>
+        <div class="may-tinh">
+            <input id="manHinh" class="man-hinh" value="0" readonly aria-label="Màn hình máy tính">
+            <div class="phim">
+                <button onclick="xoa()">C</button><button onclick="nhapSo('.')">.</button><button onclick="doiDau()">+/-</button><button onclick="chonPhepTinh('/')">÷</button>
+<button onclick="nhapSo('7')">7</button><button onclick="nhapSo('8')">8</button><button onclick="nhapSo('9')">9</button><button onclick="chonPhepTinh('*')">×</button>
+                <button onclick="nhapSo('4')">4</button><button onclick="nhapSo('5')">5</button><button onclick="nhapSo('6')">6</button><button onclick="chonPhepTinh('-')">−</button>
+                <button onclick="nhapSo('1')">1</button><button onclick="nhapSo('2')">2</button><button onclick="nhapSo('3')">3</button><button onclick="chonPhepTinh('+')">+</button>
+                <button onclick="nhapSo('0')">0</button><button onclick="bang()" style="grid-column: span 3">=</button>
+            </div>
+        </div>
+        <p>Nhập số thứ nhất → chọn phép tính → nhập số thứ hai → nhấn =.</p>
+        <pre id="kq5" aria-live="polite"></pre>
+    </section>
     <script>
-
-   
-    // BÀI 1: KIỂM TRA SỐ CHẴN
-    
-
-    document.write("<h2>BÀI 1: Kiểm tra số chẵn</h2>");
-
-    function kiemTraSoChan(n) {
-        if (n % 2 == 0) {
-            return "Là số chẵn";
-        } else {
-            return "Không phải số chẵn";
+        // Bài 1: Hàm trả về true nếu n chia hết cho 2.
+        function laSoChan(n) {
+            return n % 2 === 0;
         }
-    }
-
-    let so1 = 10;
-
-    document.write("Số " + so1 + ": " + kiemTraSoChan(so1));
-
-    // BÀI 2: TÍNH TIỀN ĐIỆN
-    document.write("<h2>BÀI 2: Tính tiền điện</h2>");
-
-    function tinhTienDien(kwh) {
-        let tien = 0;
-
-        if (kwh <= 50) {
-            tien = kwh * 1800;
-        } else if (kwh <= 100) {
-            tien = 50 * 1800 + (kwh - 50) * 2300;
-        } else {
-            tien = 50 * 1800 + 50 * 2300
-                 + (kwh - 100) * 3000;
+        function bai1() {
+            let chuoi = document.getElementById('so').value;
+            let n = Number(chuoi);
+            if (chuoi.trim() === '' || !Number.isSafeInteger(n)) {
+                document.getElementById('kq1').textContent = 'Vui lòng nhập số nguyên hợp lệ.';
+                return;
+            }
+            if (laSoChan(n)) {
+                document.getElementById('kq1').textContent = n + ' là số chẵn.';
+            } else {
+                document.getElementById('kq1').textContent = n + ' không phải số chẵn (là số lẻ).';
+            }
         }
-
-        return tien;
-    }
-
-    let dien = 120;
-
-    document.write("Số điện: " + dien + " kWh<br>");
-    document.write("Tiền điện: " + tinhTienDien(dien).toLocaleString("vi-VN") + " đồng<br>");
-
-    // Tính ngược số điện khi biết tiền điện
-
-    function tinhSoDien(tien) {
-        if (tien <= 50 * 1800) {
-            return tien / 1800;
-        } else if (tien <= 50 * 1800 + 50 * 2300) {
-            return 50 + (tien - 50 * 1800) / 2300;
-        } else {
-            return 100 + (tien - 50 * 1800 - 50 * 2300) / 3000;
+        // Bài 2: Chỉ phần điện vượt mốc mới dùng giá bậc tiếp theo.
+        function tinhTienDien(kWh) {
+            if (kWh <= 50) {
+                return kWh * 1800;
+            } else if (kWh <= 100) {
+                return 50 * 1800 + (kWh - 50) * 2300;
+            } else {
+                return 50 * 1800 + 50 * 2300 + (kWh - 100) * 3000;
+            }
         }
-    }
-
-    let tienDien = 910000;
-
-    document.write("Tiền điện: " + tienDien.toLocaleString("vi-VN") + " đồng<br>");
-    document.write("Số điện đã sử dụng: " + tinhSoDien(tienDien) + " kWh");
-
-   
-    // BÀI 3: TÍNH LƯƠNG
-  
-
-    document.write("<h2>BÀI 3: Tính lương nhân viên</h2>");
-
-    function tinhLuong(chucVu, ngayCong) {
-
-        let heSo = 0;
-
-        if (chucVu == "intern") {
-            heSo = 1.0;
-        } else if (chucVu == "staff") {
-            heSo = 1.5;
-        } else if (chucVu == "senior") {
-            heSo = 2.0;
-        } else if (chucVu == "manager") {
-            heSo = 3.0;
-        } else {
-            return "Chức vụ không hợp lệ";
+        function bai2() {
+            let chuoi = document.getElementById('dien').value;
+            let kWh = Number(chuoi);
+            let tien = tinhTienDien(kWh);
+            if (chuoi.trim() === '' || !Number.isFinite(kWh) || kWh < 0 || !Number.isFinite(tien)) {
+                document.getElementById('kq2').textContent = 'Vui lòng nhập số kWh không âm, hợp lệ.';
+                return;
+            }
+            document.getElementById('kq2').textContent = 'Tiền điện: ' + tien.toLocaleString('vi-VN') + ' đồng';
         }
-
-        let luongCoBan = 5000000;
-
-        let luong = heSo * ngayCong * luongCoBan / 24;
-
-        return luong;
-    }
-
-    document.write("Intern: " + tinhLuong("intern", 24).toLocaleString("vi-VN") + " đồng<br>");
-    document.write("Staff: " + tinhLuong("staff", 24).toLocaleString("vi-VN") + " đồng<br>");
-    document.write("Senior: " + tinhLuong("senior", 24).toLocaleString("vi-VN") + " đồng<br>");
-    document.write("Manager: " + tinhLuong("manager", 24).toLocaleString("vi-VN") + " đồng");
-
-   
-    // BÀI 4: CHUẨN HÓA CÂU
-    
-
-    document.write("<h2>BÀI 4: Chuẩn hóa câu</h2>");
-
-    function chuanHoaCau(cau) {
-
-        cau = cau.trim();
-
-        cau = cau.replace(/\s+/g, " ");
-
-        cau = cau.replace(/\s+([.!?])/g, "$1");
-
-        cau = cau.replace(/([.!?])(?=\S)/g, "$1 ");
-
-        cau = cau.toLowerCase();
-
-        cau = cau.replace(/(^\w|[.!?]\s+\w)/g, function(ch) {
-            return ch.toUpperCase();
-        });
-
-        return cau;
-    }
-
-    let cau = " xin chao cac ban. hom nay troi dep qua !toi di hoc ve ? ";
-
-    document.write("Input: " + cau + "<br>");
-    document.write("Output: " + chuanHoaCau(cau));
-
-    
-    // BÀI 5: CALCULATOR
-    
-
-    document.write("<h2>BÀI 5: Máy tính Calculator</h2>");
-
-    function calculator(a, b, phepTinh) {
-
-        switch (phepTinh) {
-
-            case "+":
-                return a + b;
-
-            case "-":
-                return a - b;
-
-            case "*":
-                return a * b;
-
-            case "/":
-                if (b == 0) {
-                    return "Không thể chia cho 0";
+        // Bài 3: switch chọn hệ số theo chức vụ.
+        function tinhLuong(chucVu, ngayCong) {
+            let heSo;
+            switch (chucVu) {
+                case 'intern': heSo = 1; break;
+                case 'staff': heSo = 1.5; break;
+                case 'senior': heSo = 2; break;
+                case 'manager': heSo = 3; break;
+                default: return null;
+            }
+            return heSo * ngayCong * 5000000 / 24;
+        }
+function bai3() {
+            let chuoi = document.getElementById('ngay').value;
+            let ngayCong = Number(chuoi);
+            if (chuoi.trim() === '' || !Number.isFinite(ngayCong) || ngayCong < 0 || ngayCong > 31) {
+                document.getElementById('kq3').textContent = 'Vui lòng nhập ngày công từ 0 đến 31.';
+                return;
+            }
+            let luong = tinhLuong(document.getElementById('chucVu').value, ngayCong);
+            document.getElementById('kq3').textContent = 'Lương: ' + Math.round(luong).toLocaleString('vi-VN') + ' đồng';
+        }
+        // Bài 4: Duyệt từng ký tự, bỏ khoảng trắng dư và xử lý dấu câu.
+        function chuanHoaCau(cau, kieu) {
+            let ketQua = '';
+            let vietHoa = true;
+            cau = cau.trim().toLowerCase();
+            for (let i = 0; i < cau.length; i++) {
+                let kyTu = cau[i];
+                if (kyTu === ' ' || kyTu === '\n' || kyTu === '\t' || kyTu === '\r') {
+                    if (ketQua !== '' && ketQua[ketQua.length - 1] !== ' ') {
+                        ketQua += ' ';
+                    }
+                    if (kieu === 'tu') vietHoa = true;
+                } else if (kyTu === '.' || kyTu === '!' || kyTu === '?' || kyTu === ',' || kyTu === ';' || kyTu === ':') {
+                    ketQua = ketQua.trim() + kyTu + ' ';
+                    if (kyTu === '.' || kyTu === '!' || kyTu === '?' || kieu === 'tu') {
+                        vietHoa = true;
+                    }
+                } else {
+                    if (vietHoa) {
+                        ketQua += kyTu.toUpperCase();
+                        vietHoa = false;
+                    } else {
+                        ketQua += kyTu;
+                    }
                 }
-                return a / b;
-
-            default:
-                return "Phép tính không hợp lệ";
+            }
+            return ketQua.trim();
         }
-    }
-
-    document.write("10 + 5 = " + calculator(10, 5, "+") + "<br>");
-    document.write("10 - 5 = " + calculator(10, 5, "-") + "<br>");
-    document.write("10 * 5 = " + calculator(10, 5, "*") + "<br>");
-    document.write("10 / 5 = " + calculator(10, 5, "/") + "<br>");
-
+        function bai4() {
+            document.getElementById('kq4').textContent = chuanHoaCau(
+                document.getElementById('cau').value, document.getElementById('kieu').value);
+        }
+        // Bài 5: Hàm calculator dùng switch, không dùng eval.
+        function calculator(a, b, phepTinh) {
+            switch (phepTinh) {
+                case '+': return a + b;
+                case '-': return a - b;
+                case '*': return a * b;
+                case '/':
+                    if (b === 0) return 'Không thể chia cho 0';
+                    return a / b;
+                default: return 'Phép tính không hợp lệ';
+            }
+        }
+        let soThuNhat = null;
+        let phepTinh = '';
+        let nhapMoi = true;
+        function nhapSo(kyTu) {
+            let manHinh = document.getElementById('manHinh');
+            if (nhapMoi) {
+                manHinh.value = '0';
+                nhapMoi = false;
+            }
+            if (kyTu === '.') {
+                if (manHinh.value.indexOf('.') === -1) manHinh.value += '.';
+            } else if (manHinh.value === '0') {
+manHinh.value = kyTu;
+            } else {
+                manHinh.value += kyTu;
+            }
+        }
+        function chonPhepTinh(phep) {
+            if (phepTinh !== '' && !nhapMoi) bang();
+            soThuNhat = Number(document.getElementById('manHinh').value);
+            if (!Number.isFinite(soThuNhat)) return;
+            phepTinh = phep;
+            nhapMoi = true;
+            document.getElementById('kq5').textContent = soThuNhat + ' ' + phep;
+        }
+        function bang() {
+            if (phepTinh === '' || nhapMoi) return;
+            let soThuHai = Number(document.getElementById('manHinh').value);
+            let ketQua = calculator(soThuNhat, soThuHai, phepTinh);
+            if (typeof ketQua === 'number' && !Number.isFinite(ketQua)) ketQua = 'Kết quả vượt phạm vi tính toán';
+            document.getElementById('kq5').textContent = soThuNhat + ' ' + phepTinh + ' ' + soThuHai + ' = ' + ketQua;
+            document.getElementById('manHinh').value = ketQua;
+            phepTinh = '';
+            nhapMoi = true;
+        }
+        function doiDau() {
+            let manHinh = document.getElementById('manHinh');
+            if (!Number.isFinite(Number(manHinh.value))) return;
+            if (nhapMoi && phepTinh !== '') manHinh.value = '0';
+            manHinh.value = String(-Number(manHinh.value));
+            nhapMoi = false;
+        }
+        function xoa() {
+            document.getElementById('manHinh').value = '0';
+            document.getElementById('kq5').textContent = '';
+            soThuNhat = null;
+            phepTinh = '';
+            nhapMoi = true;
+        }
     </script>
-
 </body>
 </html>
