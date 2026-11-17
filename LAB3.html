@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>LAB 03 - JavaScript</title>
+</head>
+<body>
+
+    <h1>LAB 03 - LẬP TRÌNH JAVASCRIPT</h1>
+
+    <script>
+
+   
+    // BÀI 1: KIỂM TRA SỐ CHẴN
+    
+
+    document.write("<h2>BÀI 1: Kiểm tra số chẵn</h2>");
+
+    function kiemTraSoChan(n) {
+        if (n % 2 == 0) {
+            return "Là số chẵn";
+        } else {
+            return "Không phải số chẵn";
+        }
+    }
+
+    let so1 = 10;
+
+    document.write("Số " + so1 + ": " + kiemTraSoChan(so1));
+
+    // BÀI 2: TÍNH TIỀN ĐIỆN
+    document.write("<h2>BÀI 2: Tính tiền điện</h2>");
+
+    function tinhTienDien(kwh) {
+        let tien = 0;
+
+        if (kwh <= 50) {
+            tien = kwh * 1800;
+        } else if (kwh <= 100) {
+            tien = 50 * 1800 + (kwh - 50) * 2300;
+        } else {
+            tien = 50 * 1800 + 50 * 2300
+                 + (kwh - 100) * 3000;
+        }
+
+        return tien;
+    }
+
+    let dien = 120;
+
+    document.write("Số điện: " + dien + " kWh<br>");
+    document.write("Tiền điện: " + tinhTienDien(dien).toLocaleString("vi-VN") + " đồng<br>");
+
+    // Tính ngược số điện khi biết tiền điện
+
+    function tinhSoDien(tien) {
+        if (tien <= 50 * 1800) {
+            return tien / 1800;
+        } else if (tien <= 50 * 1800 + 50 * 2300) {
+            return 50 + (tien - 50 * 1800) / 2300;
+        } else {
+            return 100 + (tien - 50 * 1800 - 50 * 2300) / 3000;
+        }
+    }
+
+    let tienDien = 910000;
+
+    document.write("Tiền điện: " + tienDien.toLocaleString("vi-VN") + " đồng<br>");
+    document.write("Số điện đã sử dụng: " + tinhSoDien(tienDien) + " kWh");
+
+   
+    // BÀI 3: TÍNH LƯƠNG
+  
+
+    document.write("<h2>BÀI 3: Tính lương nhân viên</h2>");
+
+    function tinhLuong(chucVu, ngayCong) {
+
+        let heSo = 0;
+
+        if (chucVu == "intern") {
+            heSo = 1.0;
+        } else if (chucVu == "staff") {
+            heSo = 1.5;
+        } else if (chucVu == "senior") {
+            heSo = 2.0;
+        } else if (chucVu == "manager") {
+            heSo = 3.0;
+        } else {
+            return "Chức vụ không hợp lệ";
+        }
+
+        let luongCoBan = 5000000;
+
+        let luong = heSo * ngayCong * luongCoBan / 24;
+
+        return luong;
+    }
+
+    document.write("Intern: " + tinhLuong("intern", 24).toLocaleString("vi-VN") + " đồng<br>");
+    document.write("Staff: " + tinhLuong("staff", 24).toLocaleString("vi-VN") + " đồng<br>");
+    document.write("Senior: " + tinhLuong("senior", 24).toLocaleString("vi-VN") + " đồng<br>");
+    document.write("Manager: " + tinhLuong("manager", 24).toLocaleString("vi-VN") + " đồng");
+
+   
+    // BÀI 4: CHUẨN HÓA CÂU
+    
+
+    document.write("<h2>BÀI 4: Chuẩn hóa câu</h2>");
+
+    function chuanHoaCau(cau) {
+
+        cau = cau.trim();
+
+        cau = cau.replace(/\s+/g, " ");
+
+        cau = cau.replace(/\s+([.!?])/g, "$1");
+
+        cau = cau.replace(/([.!?])(?=\S)/g, "$1 ");
+
+        cau = cau.toLowerCase();
+
+        cau = cau.replace(/(^\w|[.!?]\s+\w)/g, function(ch) {
+            return ch.toUpperCase();
+        });
+
+        return cau;
+    }
+
+    let cau = " xin chao cac ban. hom nay troi dep qua !toi di hoc ve ? ";
+
+    document.write("Input: " + cau + "<br>");
+    document.write("Output: " + chuanHoaCau(cau));
+
+    
+    // BÀI 5: CALCULATOR
+    
+
+    document.write("<h2>BÀI 5: Máy tính Calculator</h2>");
+
+    function calculator(a, b, phepTinh) {
+
+        switch (phepTinh) {
+
+            case "+":
+                return a + b;
+
+            case "-":
+                return a - b;
+
+            case "*":
+                return a * b;
+
+            case "/":
+                if (b == 0) {
+                    return "Không thể chia cho 0";
+                }
+                return a / b;
+
+            default:
+                return "Phép tính không hợp lệ";
+        }
+    }
+
+    document.write("10 + 5 = " + calculator(10, 5, "+") + "<br>");
+    document.write("10 - 5 = " + calculator(10, 5, "-") + "<br>");
+    document.write("10 * 5 = " + calculator(10, 5, "*") + "<br>");
+    document.write("10 / 5 = " + calculator(10, 5, "/") + "<br>");
+
+    </script>
+
+</body>
+</html>
